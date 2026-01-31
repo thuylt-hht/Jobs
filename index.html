@@ -1,200 +1,168 @@
 <!doctype html>
 <html lang="vi">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>A1 Jobs Vocabulary Quiz</title>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>A1 Jobs Quiz</title>
 
-  <style>
-    body {
-      margin: 0;
-      font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
-      background: #eef2ff;
-      color: #111;
-    }
-    .wrap {
-      max-width: 860px;
-      margin: auto;
-      padding: 18px;
-    }
-    .card {
-      background: #fff;
-      border-radius: 16px;
-      padding: 18px;
-      box-shadow: 0 12px 28px rgba(0,0,0,.08);
-    }
-    h1 { font-size: 20px; margin-bottom: 6px; }
-    .muted { color:#333; font-size:14px; }
+<style>
+body{
+  margin:0;
+  font-family:system-ui,-apple-system,Segoe UI,Roboto,Arial;
+  background:#eef2ff;
+}
+.wrap{max-width:860px;margin:auto;padding:18px}
+.card{
+  background:#fff;border-radius:16px;padding:18px;
+  box-shadow:0 12px 28px rgba(0,0,0,.08)
+}
+h1{font-size:20px;margin:0}
+.muted{color:#333;font-size:14px}
+.row{display:flex;gap:12px;flex-wrap:wrap;margin-top:12px}
+.pill{background:#e9edff;padding:8px 12px;border-radius:999px;font-weight:600}
 
-    .row { display:flex; gap:12px; flex-wrap:wrap; margin-top:12px; }
-    .pill {
-      background:#e9edff;
-      padding:8px 12px;
-      border-radius:999px;
-      font-size:14px;
-      font-weight:600;
-    }
+input{
+  padding:12px;
+  font-size:16px;
+  border-radius:10px;
+  border:2px solid #cfd6e6;
+  width:100%;
+}
 
-    button {
-      border:none;
-      border-radius:12px;
-      padding:10px 16px;
-      font-size:15px;
-      font-weight:600;
-      cursor:pointer;
-    }
-    #startBtn { background:#2f6fed; color:#fff; }
-    #restartBtn { background:#e5e8f3; }
+button{
+  border:none;border-radius:12px;
+  padding:10px 16px;
+  font-size:15px;font-weight:600;
+  cursor:pointer
+}
+#startBtn{background:#2f6fed;color:#fff}
+#restartBtn{background:#e5e8f3}
 
-    .qtitle { font-size:16px; font-weight:700; margin:14px 0; }
+.opts{display:grid;gap:12px;margin-top:10px}
+.opt{
+  background:#fff;
+  border:2px solid #cfd6e6;
+  padding:14px;
+  font-size:16px;
+  border-radius:12px;
+  text-align:left;
+}
+.opt:hover{background:#f2f6ff;border-color:#2f6fed}
+.opt.correct{background:#eaf8ee;border-color:#2fb344}
+.opt.wrong{background:#ffeff0;border-color:#e03131}
 
-    .opts { display:grid; gap:12px; }
-
-    /* ====== ĐÁP ÁN RÕ HƠN ====== */
-    .opt {
-      background:#ffffff;
-      border:2px solid #cfd6e6;
-      padding:14px;
-      font-size:16px;
-      border-radius:12px;
-      text-align:left;
-      cursor:pointer;
-    }
-    .opt:hover {
-      background:#f2f6ff;
-      border-color:#2f6fed;
-    }
-    .opt.correct {
-      background:#eaf8ee;
-      border-color:#2fb344;
-    }
-    .opt.wrong {
-      background:#ffeff0;
-      border-color:#e03131;
-    }
-
-    .bar {
-      height:10px;
-      background:#e5e8f3;
-      border-radius:999px;
-      overflow:hidden;
-      margin-top:10px;
-    }
-    .bar div {
-      height:100%;
-      background:#2f6fed;
-      width:0%;
-      transition:width .3s;
-    }
-
-    ul { padding-left:18px; }
-  </style>
+.bar{height:10px;background:#e5e8f3;border-radius:999px;overflow:hidden}
+.bar div{height:100%;background:#2f6fed;width:0%}
+</style>
 </head>
 
 <body>
 <div class="wrap">
-  <div class="card">
-    <h1>A1 English Quiz – Jobs (15 câu)</h1>
-    <p class="muted">Chọn đáp án đúng. Hết bài sẽ hiện điểm và câu sai.</p>
+<div class="card">
+<h1>A1 English Quiz – Jobs</h1>
+<p class="muted">⚠️ Vui lòng nhập tên trước khi làm bài</p>
 
-    <div class="row">
-      <div class="pill">Câu <span id="qIndex">0</span>/15</div>
-      <div class="pill">Điểm: <span id="score">0</span></div>
-      <div class="pill">⏱ <span id="time">00:00</span></div>
-    </div>
+<!-- NHẬP TÊN -->
+<input id="studentName" placeholder="Nhập HỌ TÊN SINH VIÊN">
 
-    <div class="bar"><div id="progress"></div></div>
+<div class="row">
+  <div class="pill">Câu <span id="qIndex">0</span>/15</div>
+  <div class="pill">Điểm: <span id="score">0</span></div>
+  <div class="pill">⏱ <span id="time">00:00</span></div>
+</div>
 
-    <div class="row">
-      <button id="startBtn">Bắt đầu</button>
-      <button id="restartBtn" disabled>Làm lại</button>
-    </div>
+<div class="bar"><div id="progress"></div></div>
 
-    <div id="quizArea" class="muted" style="margin-top:14px;">
-      Nhấn <b>Bắt đầu</b> để làm bài.
-    </div>
-  </div>
+<div class="row">
+  <button id="startBtn">Bắt đầu</button>
+  <button id="restartBtn" disabled>Làm lại</button>
+</div>
+
+<div id="quizArea" class="muted" style="margin-top:14px">
+Nhập tên → bấm <b>Bắt đầu</b>
+</div>
+
+</div>
 </div>
 
 <script>
-/* ===== 1. CÂU HỎI A1 – ĐÚNG + SAI RIÊNG ===== */
-const QUESTIONS = [
-  { q:"A doctor works in a …", correct:"hospital", wrong:["school","farm","restaurant"] },
-  { q:"A teacher works in a …", correct:"school", wrong:["hotel","factory","airport"] },
-  { q:"A chef cooks in a …", correct:"restaurant", wrong:["bank","library","office"] },
-  { q:"A nurse helps people in a …", correct:"hospital", wrong:["cinema","shop","park"] },
-  { q:"A driver drives a …", correct:"bus", wrong:["book","computer","table"] },
-  { q:"A farmer works on a …", correct:"farm", wrong:["train","office","hotel"] },
-  { q:"A police officer works at a …", correct:"police station", wrong:["school","market","kitchen"] },
-  { q:"A pilot flies a …", correct:"plane", wrong:["bus","boat","bike"] },
-  { q:"A waiter works in a …", correct:"restaurant", wrong:["hospital","garage","lab"] },
-  { q:"A mechanic fixes a …", correct:"car", wrong:["cake","hair","phone"] },
-  { q:"A dentist checks your …", correct:"teeth", wrong:["eyes","ears","feet"] },
-  { q:"A barber cuts your …", correct:"hair", wrong:["paper","meat","grass"] },
-  { q:"A cashier works in a …", correct:"shop", wrong:["school","airport","park"] },
-  { q:"A firefighter puts out …", correct:"fires", wrong:["music","money","books"] },
-  { q:"A vet helps …", correct:"animals", wrong:["cars","houses","computers"] },
+const QUESTIONS=[
+ {q:"A doctor works in a …",c:"hospital",w:["school","farm","restaurant"]},
+ {q:"A teacher works in a …",c:"school",w:["hotel","factory","airport"]},
+ {q:"A chef cooks in a …",c:"restaurant",w:["bank","library","office"]},
+ {q:"A nurse helps people in a …",c:"hospital",w:["shop","park","cinema"]},
+ {q:"A driver drives a …",c:"bus",w:["book","computer","table"]},
+ {q:"A farmer works on a …",c:"farm",w:["office","hotel","train"]},
+ {q:"A police officer works at a …",c:"police station",w:["school","market","kitchen"]},
+ {q:"A pilot flies a …",c:"plane",w:["bus","boat","bike"]},
+ {q:"A waiter works in a …",c:"restaurant",w:["hospital","garage","lab"]},
+ {q:"A mechanic fixes a …",c:"car",w:["cake","hair","phone"]},
+ {q:"A dentist checks your …",c:"teeth",w:["eyes","ears","feet"]},
+ {q:"A barber cuts your …",c:"hair",w:["paper","meat","grass"]},
+ {q:"A cashier works in a …",c:"shop",w:["school","airport","park"]},
+ {q:"A firefighter puts out …",c:"fires",w:["music","money","books"]},
+ {q:"A vet helps …",c:"animals",w:["cars","houses","computers"]}
 ];
 
-/* ===== 2. HÀM XÁO ĐÁP ÁN ===== */
-function shuffle(arr){
-  return arr.sort(()=>Math.random()-0.5);
-}
+const quizArea=document.getElementById("quizArea");
+const startBtn=document.getElementById("startBtn");
+const restartBtn=document.getElementById("restartBtn");
+const qIndexEl=document.getElementById("qIndex");
+const scoreEl=document.getElementById("score");
+const timeEl=document.getElementById("time");
+const progressEl=document.getElementById("progress");
+const nameInput=document.getElementById("studentName");
 
-/* ===== 3. LOGIC QUIZ ===== */
-const quizArea = document.getElementById("quizArea");
-const startBtn = document.getElementById("startBtn");
-const restartBtn = document.getElementById("restartBtn");
-const qIndexEl = document.getElementById("qIndex");
-const scoreEl = document.getElementById("score");
-const timeEl = document.getElementById("time");
-const progressEl = document.getElementById("progress");
+let order=[],i=0,score=0,sec=0,timer,studentName="";
+let review=[];
 
-let order = shuffle([...Array(QUESTIONS.length).keys()]);
-let i = 0, score = 0, seconds = 0, timer;
-let review = [];
+const shuffle=a=>a.sort(()=>Math.random()-0.5);
 
-function startTimer(){
-  clearInterval(timer);
-  seconds = 0;
-  timer = setInterval(()=>{
-    seconds++;
-    timeEl.textContent =
-      String(Math.floor(seconds/60)).padStart(2,"0")+":"+
-      String(seconds%60).padStart(2,"0");
+function start(){
+  if(!nameInput.value.trim()){
+    alert("Vui lòng nhập HỌ TÊN trước khi làm bài!");
+    return;
+  }
+  studentName=nameInput.value.trim();
+  order=shuffle([...Array(QUESTIONS.length).keys()]);
+  i=0;score=0;sec=0;review=[];
+  scoreEl.textContent=0;
+  timer=setInterval(()=>{
+    sec++;
+    timeEl.textContent=
+      String(Math.floor(sec/60)).padStart(2,"0")+":"+
+      String(sec%60).padStart(2,"0");
   },1000);
+  show();
 }
 
-function showQuestion(){
-  qIndexEl.textContent = i+1;
-  progressEl.style.width = ((i)/QUESTIONS.length*100)+"%";
+function show(){
+  qIndexEl.textContent=i+1;
+  progressEl.style.width=(i/15*100)+"%";
+  const q=QUESTIONS[order[i]];
+  const answers=shuffle([q.c,...q.w]);
+  const correct=answers.indexOf(q.c);
 
-  const q = QUESTIONS[order[i]];
-  const answers = shuffle([q.correct, ...q.wrong]);
-  const correctIndex = answers.indexOf(q.correct);
+  quizArea.innerHTML=
+    `<b>${i+1}. ${q.q}</b>
+     <div class="opts">
+     ${answers.map((a,idx)=>`<button class="opt" data-i="${idx}">${a}</button>`).join("")}
+     </div>`;
 
-  quizArea.innerHTML = `
-    <div class="qtitle">${i+1}. ${q.q}</div>
-    <div class="opts">
-      ${answers.map((a,idx)=>`<button class="opt" data-i="${idx}">${a}</button>`).join("")}
-    </div>
-  `;
-
-  document.querySelectorAll(".opt").forEach(btn=>{
-    btn.onclick = ()=>{
-      document.querySelectorAll(".opt").forEach(b=>{
-        b.disabled=true;
-        if(Number(b.dataset.i)===correctIndex) b.classList.add("correct");
+  document.querySelectorAll(".opt").forEach(b=>{
+    b.onclick=()=>{
+      document.querySelectorAll(".opt").forEach(x=>{
+        x.disabled=true;
+        if(Number(x.dataset.i)===correct) x.classList.add("correct");
       });
-      if(Number(btn.dataset.i)!==correctIndex){
-        btn.classList.add("wrong");
-        review.push(`${q.q} → ${q.correct}`);
+      if(Number(b.dataset.i)!==correct){
+        b.classList.add("wrong");
+        review.push(q.q+" → "+q.c);
       } else score++;
-      scoreEl.textContent = score;
-
+      scoreEl.textContent=score;
       setTimeout(()=>{
         i++;
-        if(i<QUESTIONS.length) showQuestion();
+        if(i<15) show();
         else finish();
       },900);
     };
@@ -204,23 +172,16 @@ function showQuestion(){
 function finish(){
   clearInterval(timer);
   progressEl.style.width="100%";
-  quizArea.innerHTML = `
-    <h3>Hoàn thành 🎉</h3>
-    <p>Điểm: <b>${score}/15</b></p>
-    ${review.length? "<b>Câu sai:</b><ul>"+review.map(r=>"<li>"+r+"</li>").join("")+"</ul>":"<p>Đúng hết 👏</p>"}
-  `;
+  quizArea.innerHTML=
+   `<h3>Hoàn thành 🎉</h3>
+    <p><b>Họ tên:</b> ${studentName}</p>
+    <p><b>Điểm:</b> ${score}/15</p>
+    ${review.length? "<b>Câu sai:</b><ul>"+review.map(r=>"<li>"+r+"</li>").join("")+"</ul>":"<p>Đúng hết 👏</p>"}`;
   restartBtn.disabled=false;
 }
 
-startBtn.onclick = ()=>{
-  order = shuffle([...Array(QUESTIONS.length).keys()]);
-  i=0; score=0; review=[];
-  scoreEl.textContent=0;
-  startTimer();
-  showQuestion();
-};
-
-restartBtn.onclick = startBtn.onclick;
+startBtn.onclick=start;
+restartBtn.onclick=start;
 </script>
 </body>
 </html>
